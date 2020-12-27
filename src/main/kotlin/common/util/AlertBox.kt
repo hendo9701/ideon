@@ -28,7 +28,7 @@ import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconName as FAName
  * @param bodyText   The body text for this notification
  */
 fun showError(stage: Stage, headerText: String, bodyText: String) {
-    showSingle(stage, SEVERE, headerText, bodyText)
+  showSingle(stage, SEVERE, headerText, bodyText)
 }
 
 /**
@@ -39,7 +39,7 @@ fun showError(stage: Stage, headerText: String, bodyText: String) {
  * @param bodyText   The body text for this notification
  */
 fun notify(stage: Stage, headerText: String, bodyText: String) {
-    showSingle(stage, INFO, headerText, bodyText)
+  showSingle(stage, INFO, headerText, bodyText)
 }
 
 /**
@@ -51,16 +51,16 @@ fun notify(stage: Stage, headerText: String, bodyText: String) {
  * @param bodyText   The body text for this notification
  */
 private fun showSingle(stage: Stage, level: Level, headerText: String, bodyText: String) {
-    val dismissButton = buildButton(FAName.MINUS, false)
-    val alert = getTemplate(
-            level,
-            stage,
-            headerText,
-            listOf(Label(bodyText).apply { isWrapText = true }),
-            listOf(dismissButton)
-    )
-    dismissButton.setOnAction { alert.hideWithAnimation() }
-    alert.showAndWait()
+  val dismissButton = buildButton(FAName.MINUS, false)
+  val alert = getTemplate(
+      level,
+      stage,
+      headerText,
+      listOf(Label(bodyText).apply { isWrapText = true }),
+      listOf(dismissButton)
+  )
+  dismissButton.setOnAction { alert.hideWithAnimation() }
+  alert.showAndWait()
 }
 
 /**
@@ -75,43 +75,43 @@ private fun showSingle(stage: Stage, level: Level, headerText: String, bodyText:
  */
 @Suppress("UNCHECKED_CAST")
 fun request(
-        stage: Stage,
-        header: String,
-        validationRegex: Regex,
-        onFailure: String,
-        suggestion: String
+    stage: Stage,
+    header: String,
+    validationRegex: Regex,
+    onFailure: String,
+    suggestion: String
 ): Optional<String> {
-    val field = JFXTextField().apply {
-        styleClass += Tag.FIELD.toString()
-        textProperty().addListener { _, _, _ ->
-            styleClass.removeAll(Tag.WRONG.toString(), Tag.RIGHT.toString())
-            styleClass += if (!text.matches(validationRegex))
-                Tag.WRONG.toString()
-            else
-                Tag.RIGHT.toString()
-        }
+  val field = JFXTextField().apply {
+    styleClass += Tag.FIELD.toString()
+    textProperty().addListener { _, _, _ ->
+      styleClass.removeAll(Tag.WRONG.toString(), Tag.RIGHT.toString())
+      styleClass += if (!text.matches(validationRegex))
+        Tag.WRONG.toString()
+      else
+        Tag.RIGHT.toString()
     }
+  }
 
-    val accept = buildButton(FAName.CHECK, isDefault = true)
-    val cancel = buildButton(FAName.CLOSE, isDefault = false)
+  val accept = buildButton(FAName.CHECK, isDefault = true)
+  val cancel = buildButton(FAName.CLOSE, isDefault = false)
 
-    val alert = getTemplate(DEFAULT, stage, header, listOf(field), listOf(accept, cancel))
+  val alert = getTemplate(DEFAULT, stage, header, listOf(field), listOf(accept, cancel))
 
-    accept.setOnAction {
-        if (!field.text.matches(validationRegex)) {
-            showError(stage, onFailure, suggestion)
-            field.requestFocus()
-        } else {
-            alert.result = field.text
-            alert.hideWithAnimation()
-        }
+  accept.setOnAction {
+    if (!field.text.matches(validationRegex)) {
+      showError(stage, onFailure, suggestion)
+      field.requestFocus()
+    } else {
+      alert.result = field.text
+      alert.hideWithAnimation()
     }
-    cancel.setOnAction {
-        alert.result = ""
-        alert.hideWithAnimation()
-    }
+  }
+  cancel.setOnAction {
+    alert.result = ""
+    alert.hideWithAnimation()
+  }
 
-    return alert.showAndWait() as Optional<String>
+  return alert.showAndWait() as Optional<String>
 }
 
 /**
@@ -123,24 +123,24 @@ fun request(
  * @return Returns true or false depending on selected choice
  */
 fun showConfirmation(
-        stage: Stage,
-        headerText: String,
-        bodyText: String
+    stage: Stage,
+    headerText: String,
+    bodyText: String
 ): Boolean {
-    val yes = buildButton(FAName.PLUS, isDefault = true)
-    val no = buildButton(FAName.MINUS, isDefault = false)
+  val yes = buildButton(FAName.PLUS, isDefault = true)
+  val no = buildButton(FAName.MINUS, isDefault = false)
 
-    val alert = getTemplate(
-            WARN, stage, headerText,
-            listOf(Label(bodyText).apply { isWrapText = true }),
-            listOf(yes, no)
-    )
+  val alert = getTemplate(
+      WARN, stage, headerText,
+      listOf(Label(bodyText).apply { isWrapText = true }),
+      listOf(yes, no)
+  )
 
-    yes.setOnAction { with(alert) { result = true; hideWithAnimation() } }
-    no.setOnAction { with(alert) { result = false; hideWithAnimation() } }
+  yes.setOnAction { with(alert) { result = true; hideWithAnimation() } }
+  no.setOnAction { with(alert) { result = false; hideWithAnimation() } }
 
-    val result = alert.showAndWait()
-    return result.isPresent && result.get() as Boolean
+  val result = alert.showAndWait()
+  return result.isPresent && result.get() as Boolean
 }
 
 /**
@@ -154,21 +154,21 @@ fun showConfirmation(
  * @return A pre-built alert according to specified parameters
  */
 fun getTemplate(
-        level: Level,
-        stage: Stage,
-        headerText: String,
-        bodyContent: List<Node>,
-        buttons: List<Button>
+    level: Level,
+    stage: Stage,
+    headerText: String,
+    bodyContent: List<Node>,
+    buttons: List<Button>
 ): JFXAlert<*> = JFXAlert<Any>(stage).apply {
-    initModality(Modality.APPLICATION_MODAL)
-    isOverlayClose = false
-    setContent(JFXDialogLayout().apply {
-        addStylesheet(AlertBoxStyle::class)
-        styleClass += level.toString()
-        setHeading(Label(headerText).apply { this.styleClass += Tag.HEADER.toString() })
-        setBody(VBox(*bodyContent.toTypedArray()))
-        setActions(*buttons.toTypedArray())
-    })
+  initModality(Modality.APPLICATION_MODAL)
+  isOverlayClose = false
+  setContent(JFXDialogLayout().apply {
+    addStylesheet(AlertBoxStyle::class)
+    styleClass += level.toString()
+    setHeading(Label(headerText).apply { this.styleClass += Tag.HEADER.toString() })
+    setBody(VBox(*bodyContent.toTypedArray()))
+    setActions(*buttons.toTypedArray())
+  })
 }
 
 /**
@@ -179,12 +179,12 @@ fun getTemplate(
  * @return The pre-built button1
  */
 fun buildButton(name: FAName, isDefault: Boolean) = JFXButton().apply {
-    if (isDefault) isDefaultButton = true
-    else isCancelButton = true
-    graphic = FontAwesomeIcon().apply {
-        setIcon(name)
-        styleClass += Tag.ACTION.toString()
-    }
+  if (isDefault) isDefaultButton = true
+  else isCancelButton = true
+  graphic = FontAwesomeIcon().apply {
+    setIcon(name)
+    styleClass += Tag.ACTION.toString()
+  }
 }
 
 
@@ -192,29 +192,29 @@ fun buildButton(name: FAName, isDefault: Boolean) = JFXButton().apply {
  * Represents the priority of a notification interpreted as a color
  */
 enum class Level(private val level: String) {
-    /**
-     * Red
-     */
-    SEVERE("severe"),
+  /**
+   * Red
+   */
+  SEVERE("severe"),
 
-    /**
-     * Green
-     */
-    INFO("info"),
+  /**
+   * Green
+   */
+  INFO("info"),
 
-    /**
-     * Grey
-     */
-    DEFAULT("default"),
+  /**
+   * Grey
+   */
+  DEFAULT("default"),
 
-    /**
-     * Yellow
-     */
-    WARN("warn");
+  /**
+   * Yellow
+   */
+  WARN("warn");
 
-    override fun toString(): String {
-        return level
-    }
+  override fun toString(): String {
+    return level
+  }
 
 }
 
@@ -222,14 +222,14 @@ enum class Level(private val level: String) {
  * Represents a css class inside AlertBox.css file
  */
 private enum class Tag(private val kind: String) {
-    HEADER("header"),
-    ACTION("action"),
-    FIELD("field"),
-    RIGHT("right"),
-    WRONG("wrong");
+  HEADER("header"),
+  ACTION("action"),
+  FIELD("field"),
+  RIGHT("right"),
+  WRONG("wrong");
 
-    override fun toString(): String {
-        return kind
-    }
+  override fun toString(): String {
+    return kind
+  }
 
 }

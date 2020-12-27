@@ -19,9 +19,9 @@ private val LOG by logger {}
  * @return An optional containing the json object requested, an empty optional otherwise
  */
 private fun openJson(path: String): Optional<JSONObject> =
-        runCatching {
-            Optional.of(JSONObject(JSONTokener(FileReader(path))))
-        }.getOrDefault(Optional.empty())
+    runCatching {
+      Optional.of(JSONObject(JSONTokener(FileReader(path))))
+    }.getOrDefault(Optional.empty())
 
 /**
  * Converts a JSON object contained in a file into a map
@@ -29,13 +29,13 @@ private fun openJson(path: String): Optional<JSONObject> =
  * @return An optional containing the requested data, an empty optional otherwise
  */
 fun readFromJson(path: String): Optional<MutableMap<String, Any>> =
-        runCatching {
-            openJson(path).map { json ->
-                mutableMapOf<String, Any>().apply {
-                    json.keys().forEach { this += (it as String) to json.get(it) }
-                }
-            }
-        }.getOrElse { LOG.debug("$it"); Optional.empty() }
+    runCatching {
+      openJson(path).map { json ->
+        mutableMapOf<String, Any>().apply {
+          json.keys().forEach { this += (it as String) to json.get(it) }
+        }
+      }
+    }.getOrElse { LOG.debug("$it"); Optional.empty() }
 
 /**
  * Persists data to a JSON file
@@ -44,14 +44,14 @@ fun readFromJson(path: String): Optional<MutableMap<String, Any>> =
  * @return true iff operation succeeded, false otherwise
  */
 fun writeToJson(path: String, content: Map<String, Any>): Boolean =
-        runCatching {
-            File(path).let {
-                val old = if (!it.exists()) {
-                    it.createNewFile(); JSONObject()
-                } else openJson(path).orElseGet { JSONObject() }
-                content.entries.forEach { entry -> old.put(entry.key, entry.value) }
-                val result = setContent(content = old.toString(2), destination = it)
-                result
-            }
-        }.getOrElse { LOG.debug("Something went wrong.\n$it"); false }
+    runCatching {
+      File(path).let {
+        val old = if (!it.exists()) {
+          it.createNewFile(); JSONObject()
+        } else openJson(path).orElseGet { JSONObject() }
+        content.entries.forEach { entry -> old.put(entry.key, entry.value) }
+        val result = setContent(content = old.toString(2), destination = it)
+        result
+      }
+    }.getOrElse { LOG.debug("Something went wrong.\n$it"); false }
 

@@ -4,12 +4,12 @@
 package ideon
 
 class App {
-    val greeting: String
-        get() {
-            return "Hello world."
-        }
+  val greeting: String
+    get() {
+      return "Hello world."
+    }
 }
 
 fun main(args: Array<String>) {
-    println(App().greeting)
+  println(App().greeting)
 }

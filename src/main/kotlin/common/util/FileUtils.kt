@@ -18,13 +18,13 @@ private val LOG by logger { }
  * @return true iff operation succeeded, false otherwise
  */
 fun setContent(content: String, destination: File): Boolean =
-        runCatching {
-            BufferedWriter(FileWriter(destination)).use {
-                it.write(content.trimEnd())
-                LOG.debug("Content set to file $destination.")
-            }
-            true
-        }.getOrElse { LOG.debug("$it"); false }
+    runCatching {
+      BufferedWriter(FileWriter(destination)).use {
+        it.write(content.trimEnd())
+        LOG.debug("Content set to file $destination.")
+      }
+      true
+    }.getOrElse { LOG.debug("$it"); false }
 
 /**
  * Fetches content from a file
@@ -32,8 +32,8 @@ fun setContent(content: String, destination: File): Boolean =
  * @return An optional string containing the result of this operation, empty otherwise
  */
 fun getContent(source: File): Optional<String> =
-        runCatching {
-            Optional.of(source.useLines {
-                StringBuilder().apply { it.forEach { line -> this.append(line).append("\n") } }.toString().trimEnd()
-            })
-        }.getOrElse { LOG.debug("$it"); Optional.empty() }
+    runCatching {
+      Optional.of(source.useLines {
+        StringBuilder().apply { it.forEach { line -> this.append(line).append("\n") } }.toString().trimEnd()
+      })
+    }.getOrElse { LOG.debug("$it"); Optional.empty() }

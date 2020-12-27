@@ -3,9 +3,9 @@ import view.EditorStyle
 import view.EditorView
 
 class Application : App(EditorView::class, EditorStyle::class) {
-    init {
-        reloadStylesheetsOnFocus()
-    }
+  init {
+    reloadStylesheetsOnFocus()
+  }
 }
 
 fun main(args: Array<String>) = launch<Application>(args)

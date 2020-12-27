@@ -10,27 +10,27 @@ import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconName.*
 import tornadofx.*
 
 enum class IconName {
-    FOLDER,
-    FOLDER_OPEN,
-    REGULAR_FILE,
-    JAVA_FILE,
-    ANTLR_FILE,
-    CLASS_FILE,
-    JSON_FILE
+  FOLDER,
+  FOLDER_OPEN,
+  REGULAR_FILE,
+  JAVA_FILE,
+  ANTLR_FILE,
+  CLASS_FILE,
+  JSON_FILE
 }
 
 fun makeIcon(name: IconName) =
-        FontAwesomeIcon().apply {
-            when (name) {
-                FOLDER -> setIcon(FontAwesomeIconName.FOLDER)
-                FOLDER_OPEN -> setIcon(FontAwesomeIconName.FOLDER_OPEN)
-                REGULAR_FILE -> setIcon(FILE_TEXT)
-                JAVA_FILE -> setIcon(CUBES)
-                ANTLR_FILE -> setIcon(CUBE)
-                CLASS_FILE -> setIcon(COGS)
-                JSON_FILE -> setIcon(THUMB_TACK)
-            }
-            style { fontSize = 15.px; fontFamily = "FontAwesome"; fill = DEFAULT_VIVID_COLOR }
-        }
+    FontAwesomeIcon().apply {
+      when (name) {
+        FOLDER -> setIcon(FontAwesomeIconName.FOLDER)
+        FOLDER_OPEN -> setIcon(FontAwesomeIconName.FOLDER_OPEN)
+        REGULAR_FILE -> setIcon(FILE_TEXT)
+        JAVA_FILE -> setIcon(CUBES)
+        ANTLR_FILE -> setIcon(CUBE)
+        CLASS_FILE -> setIcon(COGS)
+        JSON_FILE -> setIcon(THUMB_TACK)
+      }
+      style { fontSize = 15.px; fontFamily = "FontAwesome"; fill = DEFAULT_VIVID_COLOR }
+    }
 
 
