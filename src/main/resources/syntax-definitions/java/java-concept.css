@@ -1,0 +1,42 @@
+.styled-text-area {
+    -fx-font-size: 14px;
+    -fx-background-color: #E6E6E6;
+}
+
+.keyword {
+    -fx-fill: #000080;
+    -fx-font-weight: bold;
+}
+
+.semicolon {
+    -fx-font-weight: bold;
+}
+
+.paren {
+    -fx-fill: #000080;
+    -fx-font-weight: bold;
+}
+
+.bracket {
+    -fx-fill: #000080;
+    -fx-font-weight: bold;
+}
+
+.brace {
+    -fx-fill: #000080;
+    -fx-font-weight: bold;
+}
+
+.comment {
+    -fx-fill: #808080;
+    -fx-font-weight: bold;
+}
+
+.paragraph-box:has-caret {
+    -fx-background-color: #f2f9fc;
+}
+
+.string {
+    -fx-fill: #048200;
+    -fx-font-weight: bold;
+}

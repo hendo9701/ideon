@@ -1,0 +1,9 @@
+{
+  "KEYWORD": "\\b(channels|grammar|import|lexer|mode|options|parser|tokens)\\b",
+  "STRING": "'([^\"\\\\]|\\\\.)*'",
+  "BRACE": "\\{|\\}",
+  "PAREN": "\\(|\\)",
+  "COMMENT": "//[^\n]*|/\\*(.|\\R)*?\\*/",
+  "BRACKET": "\\[|\\]",
+  "SEMICOLON": "\\;"
+}
