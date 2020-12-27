@@ -3,11 +3,25 @@ package common.util
 import java.io.File
 import java.net.URL
 import java.net.URLClassLoader
+import java.nio.file.Files
+import java.nio.file.Paths
 import java.util.*
 
 object ResourceProvider {
 
-  private val APP_PATHS = javaClass.getResource("/config.json").file
+  private val LOG by logger {}
+  private val SEPARATOR = File.pathSeparator
+  fun getPaths(): String {
+    val appConfig = Paths.get(System.getProperty("user.home")
+        + SEPARATOR
+        + "ideon"
+        + SEPARATOR
+        + "config.json")
+    LOG.debug("appConfig is: $appConfig")
+    return if (Files.exists(appConfig))
+      appConfig.toString()
+    else javaClass.getResource("/config.json").file
+  }
 
   private const val SYNTAX_DEFINITIONS = "syntax-definitions"
 
@@ -15,7 +29,7 @@ object ResourceProvider {
   private fun getSyntaxLocation(): Optional<String> = getPathTo(SYNTAX_DEFINITIONS)
 
   @JvmStatic
-  private fun getPathTo(resource: String): Optional<String> = readFromJson(APP_PATHS)
+  private fun getPathTo(resource: String): Optional<String> = readFromJson(getPaths())
       .flatMap {
         if (it.containsKey(resource)) Optional.of(it[resource]!! as String) else Optional.empty()
       }
