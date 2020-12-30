@@ -6,7 +6,8 @@ enum class ProjectDefaults(private val pName: String) {
   SRC("src"),
   OUT("out"),
   CFG("config.json"),
-  GEN("gen");
+  GEN("gen"),
+  MAIN_GRAMMAR("main_grammar");
 
   override fun toString(): String {
     return pName

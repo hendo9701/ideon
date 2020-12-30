@@ -17,8 +17,14 @@ class Project private constructor(
     val out: File,
     val cfg: File,
     val gen: File,
-    var mainGrammar: File? = null
+    mainGrammar: File? = null
 ) {
+
+  var mainGrammar = mainGrammar
+    set(value) {
+      writeToJson(cfg.absolutePath, mapOf(MAIN_GRAMMAR.toString() to value!!.absolutePath))
+      field = value
+    }
 
   companion object {
 
@@ -55,6 +61,7 @@ class Project private constructor(
 
     fun loadProject(location: String): Project {
       val cfgPath = "$location${File.separator}$CFG"
+      LOG.debug("Main grammar value is: " + readFromJson(cfgPath).get()[MAIN_GRAMMAR.toString()])
       return readFromJson(cfgPath).map {
         Project(
             name = it[NAME.toString()] as String,
@@ -62,7 +69,8 @@ class Project private constructor(
             src = File(it[SRC.toString()] as String),
             out = File(it[OUT.toString()] as String),
             gen = File(it[GEN.toString()] as String),
-            cfg = File(cfgPath)
+            cfg = File(cfgPath),
+            mainGrammar = if (it[MAIN_GRAMMAR.toString()] == null) null else File(it[MAIN_GRAMMAR.toString()] as String)
         )
       }.get()
     }
