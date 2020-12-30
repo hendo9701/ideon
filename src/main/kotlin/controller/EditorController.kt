@@ -183,7 +183,7 @@ class EditorController : Controller() {
     val command = listOf(
         JAVAC,
         "-cp",
-        """"${File(resources.url("/antlr-4.7.2-complete.jar").file).absolutePath};${currentProject.gen.absolutePath};${currentProject.src.absolutePath}"""",
+        """"${ANTLR_PATH};${currentProject.gen.absolutePath};${currentProject.src.absolutePath}"""",
         *filesInGen,
         *filesInSrc,
         "-d",
@@ -211,7 +211,7 @@ class EditorController : Controller() {
         "-cp",
         CLASS_PATH,
         "-jar",
-        File(resources.url("/antlr-4.7.2-complete.jar").file).absolutePath,
+        ANTLR_PATH,
         grammarFile.absolutePath,
         "-o",
         "$out",
@@ -242,6 +242,7 @@ class EditorController : Controller() {
     private val JAVA = "${System.getProperty("java.home")}${File.separator}bin${File.separator}java"
     private val JAVAC = "${System.getProperty("java.home")}${File.separator}bin${File.separator}javac"
     private val JAR = "${System.getProperty("java.home")}${File.separator}bin${File.separator}jar"
+    private val ANTLR_PATH = System.getenv("ANTLR_HOME")
     private val CLASS_PATH: String = System.getProperty("java.class.path")
     private val LOG by logger {}
 
