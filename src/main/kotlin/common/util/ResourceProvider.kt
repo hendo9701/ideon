@@ -10,7 +10,7 @@ import java.util.*
 object ResourceProvider {
 
   private val LOG by logger {}
-  private val SEPARATOR = File.pathSeparator
+  private val SEPARATOR = File.separator
   fun getPaths(): String {
     val appConfig = Paths.get(System.getProperty("user.home")
         + SEPARATOR
