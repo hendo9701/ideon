@@ -210,11 +210,13 @@ class EditorView : View("Editor") {
               Platform.runLater { drawerStack.toggle(bottomPane, true) }
             }
           } catch (e: MissingMainGrammarException) {
-            showError(
-                primaryStage,
-                "Something went wrong",
-                "It's seems that you have not define a grammar your project"
-            )
+            Platform.runLater {
+              showError(
+                  primaryStage,
+                  "Something went wrong",
+                  "It's seems that you have not define a grammar your project"
+              )
+            }
           }
         }
       }).apply { this.disableProperty().bind(controller.isCurrentProjectAbsent) }
